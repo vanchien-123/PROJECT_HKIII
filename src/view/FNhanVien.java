@@ -61,7 +61,13 @@ public class FNhanVien extends javax.swing.JFrame {
                     String tennv = rs.getString("tennv");
                     String sdtnv = rs.getString("sdtnv");
                     String diachi = rs.getString("diachi");
-                    String gioitinh = rs.getString("gioitinh");
+                    boolean gt = rs.getBoolean("gioitinh");
+                    String gioitinh = "";
+                    if (gt == true) {
+                        gioitinh = "Nam";
+                    } else {
+                        gioitinh = "Nữ";
+                    }
                     String a[] = new String[]{
                         manv, tennv, sdtnv, diachi, gioitinh
                     };
@@ -70,7 +76,7 @@ public class FNhanVien extends javax.swing.JFrame {
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FNhanVien.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -226,7 +232,7 @@ public class FNhanVien extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(285, 285, 285)
+                .addGap(241, 241, 241)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -245,7 +251,7 @@ public class FNhanVien extends javax.swing.JFrame {
                                                 .addComponent(jrdMale)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jrdFemale)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel9)
@@ -254,7 +260,7 @@ public class FNhanVien extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(53, 53, 53)
-                                                .addComponent(tftTen, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(tftTen))))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(57, 57, 57)
                                 .addComponent(btnAdd)
@@ -268,7 +274,7 @@ public class FNhanVien extends javax.swing.JFrame {
                                 .addComponent(btnReload)
                                 .addGap(33, 33, 33)
                                 .addComponent(btnExit)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 116, Short.MAX_VALUE)))
                         .addGap(66, 66, 66))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(274, 274, 274)
@@ -282,7 +288,7 @@ public class FNhanVien extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(270, 270, 270)
                         .addComponent(jLabel1)))
-                .addGap(265, 265, 265))
+                .addGap(250, 250, 250))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +406,8 @@ public class FNhanVien extends javax.swing.JFrame {
 
                 int kq = stmt.executeUpdate(sql);
                 if (kq > 0) {
-                    JOptionPane.showMessageDialog(null, "Delete susscessfully");
+                    JOptionPane.showMessageDialog(null, "<html><b style=\"color:red\">Waitting</b></html>", "Messege", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.print("dang load");
                     showData("");
                 } else {
                     JOptionPane.showMessageDialog(null, "Delete not susscessfully");
@@ -427,8 +434,12 @@ public class FNhanVien extends javax.swing.JFrame {
         String tennv = tblNhanVien.getModel().getValueAt(row, 1).toString();
         String sdtnv = tblNhanVien.getModel().getValueAt(row, 2).toString();
         String diachi = tblNhanVien.getModel().getValueAt(row, 3).toString();
-        //String gioitinh = tblNhanVien.getModel().getValueAt(row, 4).toString();
-        // giới tính
+        String gt = tblNhanVien.getModel().getValueAt(row, 4).toString();
+        if (gt.equalsIgnoreCase("nam")) {
+            jrdMale.setSelected(true);
+        } else {
+            jrdFemale.setSelected(true);
+        }
 
         tftMaNV.setText(manv);
         tftTen.setText(tennv);
@@ -449,10 +460,12 @@ public class FNhanVien extends javax.swing.JFrame {
                     String tennv = tftTen.getText();
                     String sdtnv = tftSdtnv.getText();
                     String diachi = tftDiaChi.getText();
-                    boolean gioitinh = true;
-                    if (this.jrdMale.isSelected()) {
+                    boolean gioitinh = false;
+                    if (jrdMale.isSelected()) {
+                        System.out.println("Nam");
                         gioitinh = true;
-                    } else if (this.jrdFemale.isSelected()) {
+                    } else if (jrdFemale.isSelected()) {
+                        System.out.println("Nữ");
                         gioitinh = false;
                     }
                     String sql = "insert into NHANVIEN(manv,tennv, sdtnv, diachi, gioitinh) values(N'" + manv + "',N'" + tennv + "',N'" + sdtnv + "',N'" + diachi + "',N'" + gioitinh + "')";

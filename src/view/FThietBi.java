@@ -8,15 +8,19 @@ package view;
 import connect.ConnectSQLServer;
 import constance.Constance;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.LoaiTB;
+import model.ThietBi;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -25,9 +29,11 @@ import net.proteanit.sql.DbUtils;
  */
 public class FThietBi extends javax.swing.JFrame {
 
+    private LoaiTB LoaiTB;
     Connection conn = null;
     ResultSet rs = null;
     PreparedStatement pst = null;
+    ArrayList<ThietBi> listtb;
     int flag = 0;
 
     /**
@@ -36,42 +42,77 @@ public class FThietBi extends javax.swing.JFrame {
     public FThietBi() throws SQLException {
         conn = ConnectSQLServer.getConnection(Constance.DB_URL, Constance.USER_NAME, Constance.PASSWORD);
         initComponents();
-        showData("");
+        jcbDVT.addItem("VNĐ");
+        jcbDVT.addItem("USD");
         btnAdd.setEnabled(true);
         btnEdit.setEnabled(false);
         btnSave.setEnabled(false);
-    }
-
-    private void showData(String s) throws SQLException {
-
+        listtb = new ArrayList<>();
+        conn = ConnectSQLServer.getConnection(Constance.DB_URL, Constance.USER_NAME, Constance.PASSWORD);
         tblThietBi.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Mã Thiết Bị", "Tên Thiết Bị", "Ngày Sản Xuất", "Thời Gian Bảo Hành", "Giá Mua", "Đơn Vị Tính", "Mã Loại",}
+                    "Mã TB", "Tên TB", "Ngày Sản Xuất", "Thời Gian Bảo Hành", "Giá Mua", "DVT", "Mã Loại", "Tên Loại"
+                }
+        ));
+        showData("");
+        showComboMaLoai();
+
+    }
+
+    private void showData(String s) throws SQLException {
+        listtb.clear();
+        tblThietBi.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Mã TB", "Tên TB", "Ngày Sản Xuất", "Thời Gian Bảo Hành", "Giá Mua", "Đơn Vị Tính", "Mã Loại", "Tên Loai",}
         ));
 
         if (conn != null) {
             try {
-                String sql = "select * from THIETBI where matb like '%" + s + "%' or tentb like '%" + s + "%' ";
+                String sql = "select THIETBI.matb, THIETBI.tentb, THIETBI.ngaysx, THIETBI.thoigianbaohanh, THIETBI.giamua, LOAITB.tenloai, THIETBI.dvt, THIETBI.maloai\n"
+                        + "FROM THIETBI THIETBI, LOAITB LOAITB where LOAITB.maloai = THIETBI.maloai AND (matb like '%" + s + "%' or tentb like '%" + s + "%' )";
                 Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    String manv = rs.getString("matb");
-                    String tennv = rs.getString("tentb");
-                    String date = rs.getString("ngaysx");
+                    String matb = rs.getString("matb");
+                    String tentb = rs.getString("tentb");
+                    Date date = rs.getDate("ngaysx");
                     String tgbh = rs.getString("thoigianbaohanh");
-                    String giamua = rs.getString("giamua");
+                    Float giamua = rs.getFloat("giamua");
                     String dvt = rs.getString("dvt");
                     String maloai = rs.getString("maloai");
+                    String tenloai = rs.getString("tenloai");
                     String a[] = new String[]{
-                        manv, tennv, date, tgbh, giamua, dvt, maloai};
-                    System.out.println("" + a);
+                        matb, tentb, date.toString(), tgbh, giamua.toString(), dvt, maloai, tenloai};
+                    //System.out.println("" + a);
+                    listtb.add(new ThietBi(matb, tentb, date, tgbh, giamua, dvt, maloai, tenloai));
                     ((DefaultTableModel) tblThietBi.getModel()).addRow(a);
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FThietBi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void showComboMaLoai() {
+        if (conn != null) {
+            try {
+                String sql = "select maloai,tenloai from LOAITB";
+                Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    String maloai = rs.getString("maloai");
+                    String tenloai = rs.getString("tenloai");
+                    LoaiTB p = new LoaiTB(maloai, tenloai);
+                    jcbMaLoai.addItem(p);
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FThietBi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -104,13 +145,13 @@ public class FThietBi extends javax.swing.JFrame {
         jdcDate = new com.toedter.calendar.JDateChooser();
         tftDateTime = new javax.swing.JTextField();
         tftGiaMua = new javax.swing.JTextField();
-        tftDVT = new javax.swing.JTextField();
-        tftMaLoai = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         tftSearch = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblThietBi = new javax.swing.JTable();
+        jcbMaLoai = new javax.swing.JComboBox<LoaiTB>();
+        jcbDVT = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -241,7 +282,16 @@ public class FThietBi extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
+                        .addGap(500, 500, 500)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(511, 511, 511)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(388, 388, 388)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
@@ -256,18 +306,9 @@ public class FThietBi extends javax.swing.JFrame {
                             .addComponent(tftGiaMua)
                             .addComponent(tftDateTime)
                             .addComponent(tftTenTB)
-                            .addComponent(tftMaLoai)
-                            .addComponent(tftDVT)
-                            .addComponent(jdcDate, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(500, 500, 500)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(511, 511, 511)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jdcDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcbMaLoai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcbDVT, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(238, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -316,12 +357,12 @@ public class FThietBi extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tftDVT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jcbDVT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tftMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addComponent(jcbMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(165, 165, 165)
                 .addComponent(jLabel10)
                 .addGap(28, 28, 28)
@@ -358,8 +399,7 @@ public class FThietBi extends javax.swing.JFrame {
         tftTenTB.setText("");
         tftGiaMua.setText("");
         tftDateTime.setText("");
-        tftDVT.setText("");
-        tftMaLoai.setText("");
+        jcbMaLoai.setSelectedItem(-1);
         ((JTextField) jdcDate.getDateEditor().getUiComponent()).setText("");
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -396,7 +436,7 @@ public class FThietBi extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (flag == 1) {
-            if (tftMaTB.getText().equals("") || tftTenTB.getText().equals("") || tftDVT.getText().equals("") || tftDateTime.getText().equals("") || tftGiaMua.getText().equals("") || tftMaLoai.getText().equals("")) {
+            if (tftMaTB.getText().equals("") || tftTenTB.getText().equals("") || jcbDVT.getSelectedItem().equals("") || tftDateTime.getText().equals("") || tftGiaMua.getText().equals("") || jcbMaLoai.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(this, "Please Enter All Data!");
             } else {
                 try {
@@ -405,11 +445,10 @@ public class FThietBi extends javax.swing.JFrame {
                     String date = ((JTextField) jdcDate.getDateEditor().getUiComponent()).getText();
                     String tgbh = tftDateTime.getText();
                     String giamua = tftGiaMua.getText();
-                    String dvt = tftDVT.getText();
-                    String maloai = tftMaLoai.getText();
-                    //byte[] image = pst.getBytes("photo");
+                    String dvt = (String) jcbDVT.getSelectedItem();
+                    LoaiTB TB = (LoaiTB) jcbMaLoai.getSelectedItem();
 
-                    String sql = "insert into THIETBI(matb,tentb, ngaysx, thoigianbaohanh, giamua, dvt, maloai) values(N'" + matb + "',N'" + tentb + "',N'" + date + "',N'" + tgbh + "',N'" + giamua + "',N'" + dvt + "',N'" + maloai + "')";
+                    String sql = "insert into THIETBI(matb,tentb, ngaysx, thoigianbaohanh, giamua, dvt, maloai) values(N'" + matb + "',N'" + tentb + "',N'" + date + "',N'" + tgbh + "',N'" + giamua + "',N'" + dvt + "',N'" + TB.getMaloai() + "')";
                     Statement stmt = conn.createStatement();
                     int kq = stmt.executeUpdate(sql);
                     if (kq > 0) {
@@ -432,24 +471,18 @@ public class FThietBi extends javax.swing.JFrame {
                 String date = ((JTextField) jdcDate.getDateEditor().getUiComponent()).getText();
                 String tgbh = tftDateTime.getText();
                 String giamua = (String) tftGiaMua.getText();
-                String dvt = tftDVT.getText();
-                String maloai = tftMaLoai.getText();
+                String dvt = (String) jcbDVT.getSelectedItem();
+                LoaiTB TB = (LoaiTB) jcbMaLoai.getSelectedItem();
 
-                String sql = "UPDATE THIETBI set  tentb=N'" + tentb + "', ngaysx=N'" + date + "', thoigianbaohanh=N'" + tgbh + "', giamua=N'" + giamua + "', dvt=N'" + dvt + "', maloai=N'" + maloai + "' where matb='" + matb + "'";
+                String sql = "UPDATE THIETBI set  tentb=N'" + tentb + "', ngaysx=N'" + date + "', thoigianbaohanh=N'" + tgbh + "', giamua=N'" + giamua + "', dvt=N'" + dvt + "', maloai=N'" + TB.getMaloai() + "' where matb='" + matb + "'";
                 Statement stmt = conn.createStatement();
                 int kq = stmt.executeUpdate(sql);
                 if (kq > 0) {
                     JOptionPane.showMessageDialog(null, "Update susscessfully");
                     showData("");
                     System.out.println("Được");
-//                    System.out.println(stmt);
-//                    System.out.println(sql);
-//                    System.out.println(kq);
                 } else {
                     System.out.println("Ko Được");
-//                    System.out.println(stmt);
-//                    System.out.println(sql);
-//                    System.out.println(kq);
                     JOptionPane.showMessageDialog(null, "Update not susscessfully");
                 }
             } catch (SQLException ex) {
@@ -464,19 +497,16 @@ public class FThietBi extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
         }
-        btnAdd.setEnabled(true); //Sáng
-        btnEdit.setEnabled(false); //mo
+        btnAdd.setEnabled(true); 
+        btnEdit.setEnabled(false); 
         btnSave.setEnabled(false);
         tftMaTB.requestFocus();
-        btnAdd.setEnabled(false);
-        btnEdit.setEnabled(false);
-        btnSave.setEnabled(true);
+        
+
         tftMaTB.setText("");
         tftTenTB.setText("");
         tftDateTime.setText("");
         tftGiaMua.setText("");
-        tftDVT.setText("");
-        tftMaLoai.setText("");
         ((JTextField) jdcDate.getDateEditor().getUiComponent()).setText("");
     }//GEN-LAST:event_btnReloadActionPerformed
 
@@ -492,25 +522,23 @@ public class FThietBi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void tblThietBiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblThietBiMouseClicked
-        int row = tblThietBi.getSelectedRow();
-        System.out.println("" + row);
-        String matb = tblThietBi.getModel().getValueAt(row, 0).toString();
-        String tentb = tblThietBi.getModel().getValueAt(row, 1).toString();
-        String date = tblThietBi.getModel().getValueAt(row, 2).toString();
-        String tgbh = tblThietBi.getModel().getValueAt(row, 3).toString();
-        String giamua = tblThietBi.getModel().getValueAt(row, 4).toString();
-        String dvt = tblThietBi.getModel().getValueAt(row, 5).toString();
-        String maloai = tblThietBi.getModel().getValueAt(row, 6).toString();
-
-        tftMaTB.setText(matb);
-        tftTenTB.setText(tentb);
-        tftDateTime.setText(tgbh);
-        tftGiaMua.setText("" + giamua);
-        tftDVT.setText(dvt);
-        tftMaLoai.setText(maloai);
-        ((JTextField) jdcDate.getDateEditor().getUiComponent()).setText(date);
-
         btnEdit.setEnabled(true);
+
+//        String a = tftGiaMua.getText();
+//        float f = Float.parseFloat(a);
+//        f.setText(listtb.get(row).getGiamua());
+        int row = tblThietBi.getSelectedRow();
+        System.out.println("" + listtb.get(row).getMatb());
+        tftMaTB.setText(listtb.get(row).getMatb());
+        tftTenTB.setText(listtb.get(row).getTentb());
+        jdcDate.setDate(listtb.get(row).getNgaysx());
+        tftDateTime.setText(listtb.get(row).getThoigianbaohanh());
+        //jcbDVT.setSelectedItem(listtb.get(row).getDvt());
+        jcbDVT.getModel().setSelectedItem(listtb.get(row).getDvt());
+        jcbMaLoai.getModel().setSelectedItem(new LoaiTB(listtb.get(row).getMaloai(), listtb.get(row).getTenloai()));
+        tftGiaMua.setText((listtb.get(row).getGiamua()).toString());
+
+
     }//GEN-LAST:event_tblThietBiMouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -523,29 +551,18 @@ public class FThietBi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void tftSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tftSearchMouseClicked
-        tftSearch.setText("");
+        //tftSearch.setText("");
     }//GEN-LAST:event_tftSearchMouseClicked
 
     private void tftSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tftSearchKeyReleased
-       String key = tftSearch.getText();
+        String key = tftSearch.getText();
 
         try {
 
-            if (key.matches("^[0-9]+S")) {
-
-                String query = "SELECT * FROM THIETBI where matb =" + key;
-                pst = conn.prepareStatement(query);
-                rs = pst.executeQuery();
-                tblThietBi.setModel(DbUtils.resultSetToTableModel(rs));
-
-            } else {
-
-                String query = "SELECT * FROM THIETBI where tentb LIKE '%" + key + "%'";
-                pst = conn.prepareStatement(query);
-                rs = pst.executeQuery();
-                tblThietBi.setModel(DbUtils.resultSetToTableModel(rs));
-
-            }
+            String query = "SELECT * FROM THIETBI where tentb LIKE '%" + key + "%' or matb LIKE '%" + key + "%'";
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+            tblThietBi.setModel(DbUtils.resultSetToTableModel(rs));
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -619,12 +636,12 @@ public class FThietBi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox jcbDVT;
+    private javax.swing.JComboBox<LoaiTB> jcbMaLoai;
     private com.toedter.calendar.JDateChooser jdcDate;
     private javax.swing.JTable tblThietBi;
-    private javax.swing.JTextField tftDVT;
     private javax.swing.JTextField tftDateTime;
     private javax.swing.JTextField tftGiaMua;
-    private javax.swing.JTextField tftMaLoai;
     private javax.swing.JTextField tftMaTB;
     private javax.swing.JTextField tftSearch;
     private javax.swing.JTextField tftTenTB;

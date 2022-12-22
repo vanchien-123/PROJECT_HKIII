@@ -35,28 +35,39 @@ public class MenuController implements ActionListener {
             this.MEV.hienThiAbout();
         } else if (button.equals("Exit")) {
             this.MEV.thoatKhoiChuongTrinh();
-        } else if (button.equals("Thiết bị")) {
+        } else if (button.equals("Thiết Bị")) {
             try {
                 this.MEV.openFThietBi();
             } catch (SQLException ex) {
                 Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (button.equals("Nhân viên")) {
+        } else if (button.equals("Nhân Viên")) {
             try {
                 this.MEV.openFNhanVien();
             } catch (SQLException ex) {
                 Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (button.equals("Phòng ban")) {
+        } else if (button.equals("Phòng Ban")) {
             try {
                 this.MEV.openFPhongBan();
             } catch (SQLException ex) {
                 Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else if (button.equals("Loại TB")) {
+        } else if (button.equals("Loại TB")) {
             try {
                 this.MEV.openFLoaiTB();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (button.equals("Phân Công")) {
+            try {
+                this.MEV.openFPhanCong();
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (button.equals("Thống Kê")) {
+            try {
+                this.MEV.openFThongKe();
             } catch (SQLException ex) {
                 Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
             }

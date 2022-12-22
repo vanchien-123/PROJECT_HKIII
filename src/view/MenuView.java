@@ -54,14 +54,16 @@ public class MenuView extends JFrame {
         jm_file.add(jmi_exit);
 
         JMenu jm_manager = new JMenu("Manager");
-        JMenuItem jmi_thietbi = new JMenuItem("Thiết bị");
+        JMenuItem jmi_thietbi = new JMenuItem("Thiết Bị");
         jmi_thietbi.addActionListener(handle);
-        JMenuItem jmi_nhanvien = new JMenuItem("Nhân viên");
+        JMenuItem jmi_nhanvien = new JMenuItem("Nhân Viên");
         jmi_nhanvien.addActionListener(handle);
-        JMenuItem jmi_phongban = new JMenuItem("Phòng ban");
+        JMenuItem jmi_phongban = new JMenuItem("Phòng Ban");
         jmi_phongban.addActionListener(handle);
         JMenuItem jmi_loaitb = new JMenuItem("Loại TB");
         jmi_loaitb.addActionListener(handle);
+        JMenuItem jmi_phancong = new JMenuItem("Phân Công");
+        jmi_phancong.addActionListener(handle);
 
         jm_manager.add(jmi_thietbi);
         jm_file.addSeparator();
@@ -70,6 +72,13 @@ public class MenuView extends JFrame {
         jm_manager.add(jmi_phongban);
         jm_file.addSeparator();
         jm_manager.add(jmi_loaitb);
+        jm_file.addSeparator();
+        jm_manager.add(jmi_phancong);
+
+        JMenu jm_statistical = new JMenu("Statistical");
+        JMenuItem jmi_thongke = new JMenuItem("Thống Kê");
+        jmi_thongke.addActionListener(handle);
+        jm_statistical.add(jmi_thongke);
 
         JMenu jm_about = new JMenu("About");
         JMenuItem jmi_aboutme = new JMenuItem("About Me");
@@ -78,6 +87,7 @@ public class MenuView extends JFrame {
 
         jmb.add(jm_file);
         jmb.add(jm_manager);
+        jmb.add(jm_statistical);
         jmb.add(jm_about);
 
         // thêm thanh menu vào chương trình  
@@ -153,5 +163,27 @@ public class MenuView extends JFrame {
         fLTB.setLocationRelativeTo(null);
         fLTB.setVisible(true);
         fLTB.setSize(1029, 454);
+    }
+
+    public void openFPhanCong() throws SQLException {
+        URL urlIconNotepad = MenuView.class.getResource("education.png"); // create image
+        Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);  //  đưa image vào trong chương trình 
+        FPhanCong fPC = new FPhanCong();
+        fPC.setIconImage(img);
+        fPC.setTitle("Quản Lí Phân Công");
+        fPC.setLocationRelativeTo(null);
+        fPC.setVisible(true);
+        fPC.setSize(770, 740);
+    }
+
+    public void openFThongKe() throws SQLException {
+        URL urlIconNotepad = MenuView.class.getResource("education.png"); // create image
+        Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);  //  đưa image vào trong chương trình 
+        FThongKe fTK = new FThongKe();
+        fTK.setIconImage(img);
+        fTK.setTitle("Thống Kê Thiết Bị");
+        fTK.setLocationRelativeTo(null);
+        fTK.setVisible(true);
+        fTK.setSize(625, 500);
     }
 }

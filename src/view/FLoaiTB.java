@@ -66,7 +66,7 @@ public class FLoaiTB extends javax.swing.JFrame {
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

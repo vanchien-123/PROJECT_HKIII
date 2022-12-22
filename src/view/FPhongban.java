@@ -404,10 +404,8 @@ public class FPhongban extends javax.swing.JFrame {
         System.out.println("" + input);
         if (input == 0) { // nhấn vào ok
             try {
-
                 String sql = "delete from PHONGBAN where map='" + map + "'";
                 Statement stmt = conn.createStatement();
-
                 int kq = stmt.executeUpdate(sql);
                 if (kq > 0) {
                     JOptionPane.showMessageDialog(null, "Delete susscessfully");
@@ -419,12 +417,29 @@ public class FPhongban extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex);
             }
         }
-
-
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-        // TODO add your handling code here:
+        String map = tftMaP.getText();
+        String tenpb = tftTenP.getText();
+        int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa dữ liệu " + tenpb + " ?", "Thông báo",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        System.out.println("" + input);
+        if (input == 0) { // nhấn vào ok
+            try {
+                String sql = "delete from PHONGBAN where map='" + map + "'";
+                Statement stmt = conn.createStatement();
+                int kq = stmt.executeUpdate(sql);
+                if (kq > 0) {
+                    JOptionPane.showMessageDialog(null, "Delete susscessfully");
+                    showData("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Delete not susscessfully");
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     /**
