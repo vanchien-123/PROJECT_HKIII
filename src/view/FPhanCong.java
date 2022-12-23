@@ -484,14 +484,9 @@ public class FPhanCong extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReloadActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        int luaChon = JOptionPane.showConfirmDialog(
-                this,
-                "Bạn có muốn thoải khỏi chương trình?",
-                "Exit",
-                JOptionPane.YES_NO_OPTION);
-        if (luaChon == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
+
+        dispose();
+        
     }//GEN-LAST:event_btnExitActionPerformed
 
     /**

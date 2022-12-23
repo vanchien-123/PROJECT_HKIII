@@ -26,6 +26,18 @@ public class ThietBi {
         
     }
 
+    public ThietBi(String matb, String tentb, Date ngaysx, String thoigianbaohanh, Float giamua, String dvt, String tenloai) {
+        this.matb = matb;
+        this.tentb = tentb;
+        this.ngaysx = ngaysx;
+        this.thoigianbaohanh = thoigianbaohanh;
+        this.giamua = giamua;
+        this.dvt = dvt;
+        this.tenloai = tenloai;
+    }
+    
+    
+
     public ThietBi(String matb, String tentb, Date ngaysx, String thoigianbaohanh, Float giamua, String dvt, String maloai, String tenloai) {
         this.matb = matb;
         this.tentb = tentb;

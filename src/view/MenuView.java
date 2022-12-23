@@ -38,7 +38,6 @@ public class MenuView extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
 
         // tạo thanh meunu
         JMenuBar jmb = new JMenuBar();
@@ -76,7 +75,7 @@ public class MenuView extends JFrame {
         jm_manager.add(jmi_phancong);
 
         JMenu jm_statistical = new JMenu("Statistical");
-        JMenuItem jmi_thongke = new JMenuItem("Thống Kê");
+        JMenuItem jmi_thongke = new JMenuItem("Thống Kê Theo Loại");
         jmi_thongke.addActionListener(handle);
         jm_statistical.add(jmi_thongke);
 
@@ -176,14 +175,29 @@ public class MenuView extends JFrame {
         fPC.setSize(770, 740);
     }
 
-    public void openFThongKe() throws SQLException {
+    public void openFThongKeTheoLoaiTB() throws SQLException {
         URL urlIconNotepad = MenuView.class.getResource("education.png"); // create image
         Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);  //  đưa image vào trong chương trình 
-        FThongKe fTK = new FThongKe();
-        fTK.setIconImage(img);
-        fTK.setTitle("Thống Kê Thiết Bị");
-        fTK.setLocationRelativeTo(null);
-        fTK.setVisible(true);
-        fTK.setSize(625, 500);
+        FThongKeTheoLoaiTB fTKTL = new FThongKeTheoLoaiTB();
+        fTKTL.setIconImage(img);
+        fTKTL.setTitle("Thống Kê Thiết Bị Theo Loại");
+        fTKTL.setLocationRelativeTo(null);
+        fTKTL.setVisible(true);
+        fTKTL.setSize(900, 840);
     }
+
+//    public void openFMenuView() throws SQLException {
+//        URL urlIconNotepad = MenuView.class.getResource("education.png"); // create image
+//        Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);  //  đưa image vào trong chương trình 
+//        MenuView MEV = new MenuView();
+//        MEV.setIconImage(img);
+//        MEV.setLocationRelativeTo(null);
+//        MEV.setVisible(true);
+//        MEV.setSize(1200, 655);
+//        MEV.setTitle("QUẢN LÍ THIẾT BỊ");
+//        MEV.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        MEV.setResizable(false);
+//
+//    }
+
 }

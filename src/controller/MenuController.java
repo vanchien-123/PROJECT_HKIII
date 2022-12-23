@@ -65,9 +65,9 @@ public class MenuController implements ActionListener {
             } catch (SQLException ex) {
                 Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (button.equals("Thống Kê")) {
+        } else if (button.equals("Thống Kê Theo Loại")) {
             try {
-                this.MEV.openFThongKe();
+                this.MEV.openFThongKeTheoLoaiTB();
             } catch (SQLException ex) {
                 Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
