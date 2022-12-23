@@ -84,10 +84,16 @@ public class MenuView extends JFrame {
         jm_manager.add(jmi_phancong);
 
         JMenu jm_statistical = new JMenu("Statistical");
-        JMenuItem jmi_thongke = new JMenuItem("Thống Kê Theo Loại", KeyEvent.VK_X);
-        jmi_thongke.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
-        jmi_thongke.addActionListener(handle);
-        jm_statistical.add(jmi_thongke);
+        
+        JMenuItem jmi_thongketheoloai = new JMenuItem("Thống Kê Theo Loại", KeyEvent.VK_X);
+        jmi_thongketheoloai.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
+        jmi_thongketheoloai.addActionListener(handle);
+        JMenuItem jmi_thongketheophong = new JMenuItem("Thống Kê Theo Phòng", KeyEvent.VK_S);
+        jmi_thongketheophong.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
+        jmi_thongketheophong.addActionListener(handle);
+        
+        jm_statistical.add(jmi_thongketheoloai);
+        jm_statistical.add(jmi_thongketheophong);
 
         JMenu jm_about = new JMenu("About");
         JMenuItem jmi_aboutme = new JMenuItem("About Me", KeyEvent.VK_X);
@@ -197,17 +203,15 @@ public class MenuView extends JFrame {
         fTKTL.setSize(900, 840);
     }
 
-//    public void openFMenuView() throws SQLException {
-//        URL urlIconNotepad = MenuView.class.getResource("education.png"); // create image
-//        Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);  //  đưa image vào trong chương trình 
-//        MenuView MEV = new MenuView();
-//        MEV.setIconImage(img);
-//        MEV.setLocationRelativeTo(null);
-//        MEV.setVisible(true);
-//        MEV.setSize(1200, 655);
-//        MEV.setTitle("QUẢN LÍ THIẾT BỊ");
-//        MEV.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        MEV.setResizable(false);
-//
-//    }
+    public void openFThongKeTheoPhong() throws SQLException {
+        URL urlIconNotepad = MenuView.class.getResource("education.png"); // create image
+        Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);  //  đưa image vào trong chương trình 
+        FThongKeTheoPhong fTHKTP = new FThongKeTheoPhong();
+        fTHKTP.setIconImage(img);
+        fTHKTP.setLocationRelativeTo(null);
+        fTHKTP.setVisible(true);
+        fTHKTP.setSize(1370, 780);
+        fTHKTP.setTitle("Thống Kê Thiết Bị Theo Phòng");
+
+    }
 }

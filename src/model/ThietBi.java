@@ -13,6 +13,8 @@ import java.sql.Date;
  */
 public class ThietBi {
 
+    private String map;
+    private String tenp;
     private String matb;
     private String tentb;
     private Date ngaysx;
@@ -21,9 +23,28 @@ public class ThietBi {
     private String dvt;
     private String maloai;
     private String tenloai;
+    private String tennv;
+    private Float soluong;
+    private Date ngaytrangbi;
+    private String trangthai;
 
     public ThietBi() {
-        
+
+    }
+
+    public ThietBi(String map, String tenp, String matb, String tentb, Date ngaysx, String thoigianbaohanh, Float giamua, String dvt, String tennv, Float soluong, Date ngaytrangbi, String trangthai) {
+        this.map = map;
+        this.tenp = tenp;
+        this.matb = matb;
+        this.tentb = tentb;
+        this.ngaysx = ngaysx;
+        this.thoigianbaohanh = thoigianbaohanh;
+        this.giamua = giamua;
+        this.dvt = dvt;
+        this.tennv = tennv;
+        this.soluong = soluong;
+        this.ngaytrangbi = ngaytrangbi;
+        this.trangthai = trangthai;
     }
 
     public ThietBi(String matb, String tentb, Date ngaysx, String thoigianbaohanh, Float giamua, String dvt, String tenloai) {
@@ -35,8 +56,6 @@ public class ThietBi {
         this.dvt = dvt;
         this.tenloai = tenloai;
     }
-    
-    
 
     public ThietBi(String matb, String tentb, Date ngaysx, String thoigianbaohanh, Float giamua, String dvt, String maloai, String tenloai) {
         this.matb = matb;
@@ -109,7 +128,7 @@ public class ThietBi {
     public void setMaloai(String maloai) {
         this.maloai = maloai;
     }
-    
+
     public String getTenloai() {
         return tenloai;
     }
@@ -120,7 +139,7 @@ public class ThietBi {
 
     @Override
     public String toString() {
-        return matb.trim()+"--"+tentb;
+        return matb.trim() + "--" + tentb;
     }
 
 }

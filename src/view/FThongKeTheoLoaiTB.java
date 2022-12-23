@@ -117,7 +117,7 @@ public class FThongKeTheoLoaiTB extends javax.swing.JFrame {
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(FThietBi.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FThongKeTheoLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
