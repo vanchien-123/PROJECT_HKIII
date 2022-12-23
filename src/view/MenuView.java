@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
@@ -20,6 +22,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -53,15 +56,21 @@ public class MenuView extends JFrame {
         jm_file.add(jmi_exit);
 
         JMenu jm_manager = new JMenu("Manager");
-        JMenuItem jmi_thietbi = new JMenuItem("Thiết Bị");
+
+        JMenuItem jmi_thietbi = new JMenuItem("Thiết Bị", KeyEvent.VK_T);
+        jmi_thietbi.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_DOWN_MASK));
         jmi_thietbi.addActionListener(handle);
-        JMenuItem jmi_nhanvien = new JMenuItem("Nhân Viên");
+        JMenuItem jmi_nhanvien = new JMenuItem("Nhân Viên", KeyEvent.VK_N);
+        jmi_nhanvien.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
         jmi_nhanvien.addActionListener(handle);
-        JMenuItem jmi_phongban = new JMenuItem("Phòng Ban");
+        JMenuItem jmi_phongban = new JMenuItem("Phòng Ban", KeyEvent.VK_P);
+        jmi_phongban.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
         jmi_phongban.addActionListener(handle);
-        JMenuItem jmi_loaitb = new JMenuItem("Loại TB");
+        JMenuItem jmi_loaitb = new JMenuItem("Loại TB", KeyEvent.VK_L);
+        jmi_loaitb.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
         jmi_loaitb.addActionListener(handle);
-        JMenuItem jmi_phancong = new JMenuItem("Phân Công");
+        JMenuItem jmi_phancong = new JMenuItem("Phân Công", KeyEvent.VK_O);
+        jmi_phancong.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         jmi_phancong.addActionListener(handle);
 
         jm_manager.add(jmi_thietbi);
@@ -75,12 +84,14 @@ public class MenuView extends JFrame {
         jm_manager.add(jmi_phancong);
 
         JMenu jm_statistical = new JMenu("Statistical");
-        JMenuItem jmi_thongke = new JMenuItem("Thống Kê Theo Loại");
+        JMenuItem jmi_thongke = new JMenuItem("Thống Kê Theo Loại", KeyEvent.VK_X);
+        jmi_thongke.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
         jmi_thongke.addActionListener(handle);
         jm_statistical.add(jmi_thongke);
 
         JMenu jm_about = new JMenu("About");
-        JMenuItem jmi_aboutme = new JMenuItem("About Me");
+        JMenuItem jmi_aboutme = new JMenuItem("About Me", KeyEvent.VK_X);
+        jmi_aboutme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK));
         jmi_aboutme.addActionListener(handle);
         jm_about.add(jmi_aboutme);
 
@@ -199,5 +210,4 @@ public class MenuView extends JFrame {
 //        MEV.setResizable(false);
 //
 //    }
-
 }

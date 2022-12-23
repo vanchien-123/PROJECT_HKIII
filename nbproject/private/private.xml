@@ -5,8 +5,10 @@
         <group>
             <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/view/FLogin.java</file>
             <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/view/FPhanCong.java</file>
+            <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/view/FThongKeTheoLoaiTB.java</file>
+            <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/model/ThietBi.java</file>
+            <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/view/FThietBi.java</file>
             <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/view/FNhanVien.java</file>
-            <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/controller/MenuController.java</file>
             <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/view/MenuView.java</file>
             <file>file:/D:/HKI2-ACCP/JAVA2/PROJECT_HKIII/src/test/test.java</file>
         </group>

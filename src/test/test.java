@@ -28,6 +28,7 @@ public class test {
             FLogin fLogin = new FLogin();
             fLogin.setVisible(true);
             fLogin.setIconImage(img);
+            fLogin.setSize(902,439);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException | HeadlessException ex) {
             ex.printStackTrace();
         }
