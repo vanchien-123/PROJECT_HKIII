@@ -384,9 +384,9 @@ public class FPhanCong extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        String matb = (String) jcbMaTB.getSelectedItem();
-        String manv = (String) jcbMaNV.getSelectedItem();
-        int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa dữ liệu " + manv + " ?", "Thông báo",
+        NhanVien manv = (NhanVien) jcbMaNV.getSelectedItem();
+        ThietBi matb = (ThietBi) jcbMaTB.getSelectedItem();
+        int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa dữ liệu " +  manv + " ?", "Thông báo",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
         System.out.println("" + input);
         if (input == 0) { // nhấn vào ok
@@ -486,7 +486,7 @@ public class FPhanCong extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
 
         dispose();
-        
+
     }//GEN-LAST:event_btnExitActionPerformed
 
     /**
