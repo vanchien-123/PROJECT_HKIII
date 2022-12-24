@@ -172,7 +172,7 @@ public class FThietBi extends javax.swing.JFrame {
 
         jLabel7.setText("Đơn vị Giá");
 
-        jLabel8.setText("Mã Loại");
+        jLabel8.setText("Tên Loại");
 
         btnAdd.setText("Add");
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

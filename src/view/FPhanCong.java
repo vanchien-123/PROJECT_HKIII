@@ -475,10 +475,10 @@ public class FPhanCong extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         btnAdd.setEnabled(true); //Sáng
         btnEdit.setEnabled(false); //mo
         btnSave.setEnabled(false);
-
         tftQuantity.setText("");
         ((JTextField) jdcNgayTrangBi.getDateEditor().getUiComponent()).setText("");
     }//GEN-LAST:event_btnReloadActionPerformed

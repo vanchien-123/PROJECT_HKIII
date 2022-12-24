@@ -123,7 +123,7 @@ public class MenuView extends JFrame {
     }
 
     public void hienThiAbout() {
-        JOptionPane.showMessageDialog(this, "Phần mềm quản lý thiết bị trung tâm 1.0");
+        JOptionPane.showMessageDialog(this, "Phần mềm quản lý thiết bị trung tâm 1.0.");
     }
 
     public void thoatKhoiChuongTrinh() {

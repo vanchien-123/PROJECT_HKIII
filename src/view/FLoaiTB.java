@@ -135,7 +135,7 @@ public class FLoaiTB extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel1.setText("Thông tin loại thiệt bị");
+        jLabel1.setText("Thông tin loại thiết bị");
 
         btnSave.setText("Lưu");
         btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
