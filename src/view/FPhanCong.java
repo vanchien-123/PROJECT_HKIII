@@ -55,7 +55,7 @@ public class FPhanCong extends javax.swing.JFrame {
         tblPhanCong.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Mã NV", "Mã PB", "Mã TB", "Số Lượng", "Ngày Trang Bị", "Trang Thái"
+                     "Tên NV", "Tên PB", "Tên TB", "Số Lượng", "Ngày Trang Bị", "Trang Thái"
                 }
         ));
         showData("");
@@ -69,27 +69,32 @@ public class FPhanCong extends javax.swing.JFrame {
         tblPhanCong.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Mã NV", "Mã PB", "Mã TB", "Số Lượng", "Ngày Trang Bị", "Trang Thái"}
+                     "Tên NV",  "Tên PB", "Tên TB", "Số Lượng", "Ngày Trang Bị", "Trang Thái"}
         ));
 
         if (conn != null) {
             try {
-                String sql = "select * from PHANCONG where matb like '%" + s + "%' or manv like '%" + s + "%' or map like '%" + s + "%' ";
+                String sql = "SELECT PHANCONG.manv, NHANVIEN.tennv, PHANCONG.map, PHONGBAN.tenp, PHANCONG.matb, THIETBI.tentb, PHANCONG.soluong, PHANCONG.ngaytrangbi, PHANCONG.trangthai\n"
+                        + "FROM   NHANVIEN INNER JOIN\n"
+                        + "PHANCONG ON NHANVIEN.manv = PHANCONG.manv INNER JOIN\n"
+                        + "PHONGBAN ON PHANCONG.map = PHONGBAN.map INNER JOIN\n"
+                        + "THIETBI ON PHANCONG.matb = THIETBI.matb";
+                        
                 Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
-                    String manv = rs.getString("manv");
-                    String map = rs.getString("map");
-                    String matb = rs.getString("matb");
+                    String tennv = rs.getString("tennv");
+                    String tenp = rs.getString("tenp");
+                    String tentb = rs.getString("tentb");
                     Float soluong = rs.getFloat("soluong");
                     Date date = rs.getDate("ngaytrangbi");
                     String trangthai = rs.getString("trangthai");
 
                     String a[] = new String[]{
-                        manv, map, matb, soluong.toString(), date.toString(), trangthai};
+                         tennv,  tenp,  tentb, soluong.toString(), date.toString(), trangthai};
                     //System.out.println("" + a);
-                    listPC.add(new PhanCong(manv, map, matb, soluong, date, trangthai));
+                    listPC.add(new PhanCong( tennv, tenp, tentb, soluong, date, trangthai));
                     ((DefaultTableModel) tblPhanCong.getModel()).addRow(a);
 
                 }
@@ -131,7 +136,6 @@ public class FPhanCong extends javax.swing.JFrame {
                     String tenp = rs.getString("tenp");
                     PhongBan pb = new PhongBan(map, tenp);
                     jcbMaPhong.addItem(pb);
-
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(FPhanCong.class.getName()).log(Level.SEVERE, null, ex);
@@ -268,6 +272,11 @@ public class FPhanCong extends javax.swing.JFrame {
             }
         ));
         tblPhanCong.setRowHeight(25);
+        tblPhanCong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPhanCongMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPhanCong);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -386,7 +395,7 @@ public class FPhanCong extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         NhanVien manv = (NhanVien) jcbMaNV.getSelectedItem();
         ThietBi matb = (ThietBi) jcbMaTB.getSelectedItem();
-        int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa dữ liệu " +  manv + " ?", "Thông báo",
+        int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa dữ liệu " + manv + " ?", "Thông báo",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
         System.out.println("" + input);
         if (input == 0) { // nhấn vào ok
@@ -475,7 +484,7 @@ public class FPhanCong extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         btnAdd.setEnabled(true); //Sáng
         btnEdit.setEnabled(false); //mo
         btnSave.setEnabled(false);
@@ -488,6 +497,19 @@ public class FPhanCong extends javax.swing.JFrame {
         dispose();
 
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void tblPhanCongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhanCongMouseClicked
+        btnEdit.setEnabled(true);
+        int row = tblPhanCong.getSelectedRow();
+        System.out.println("" + listPC.get(row).getMatb());
+
+        jcbMaNV.getModel().setSelectedItem(new NhanVien(listPC.get(row).getManv(), listPC.get(row).getTennv()));
+        jcbMaPhong.getModel().setSelectedItem(new PhongBan(listPC.get(row).getMap(), listPC.get(row).getTenp()));
+        jcbMaTB.getModel().setSelectedItem(new ThietBi(listPC.get(row).getMatb(), listPC.get(row).getTentb()));
+        tftQuantity.setText(listPC.get(row).getSoluong().toString());
+        jdcNgayTrangBi.setDate(listPC.get(row).getNgaytrangbi());
+        jcbTrangThai.getModel().setSelectedItem(listPC.get(row).getTrangthai());
+    }//GEN-LAST:event_tblPhanCongMouseClicked
 
     /**
      * @param args the command line arguments

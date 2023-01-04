@@ -37,6 +37,15 @@ public class FPhongban extends javax.swing.JFrame {
         conn = ConnectSQLServer.getConnection(Constance.DB_URL, Constance.USER_NAME, Constance.PASSWORD);
         initComponents();
         showData("");
+        try {
+            // TODO add your handling code here:
+            rs.first(); //trở về dòng 0
+
+            tftMaP.setText(rs.getString("map"));
+            tftTenP.setText(rs.getString("tenp"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
         btnAdd.setEnabled(true);
         btnEdit.setEnabled(false);
         btnSave.setEnabled(false);
@@ -98,6 +107,10 @@ public class FPhongban extends javax.swing.JFrame {
         btnReload = new javax.swing.JButton();
         tftSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
+        btnHome = new javax.swing.JButton();
+        btnEnd = new javax.swing.JButton();
+        btnPageup = new javax.swing.JButton();
+        btnPagedow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 255));
@@ -131,6 +144,11 @@ public class FPhongban extends javax.swing.JFrame {
         tblPhongBan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPhongBanMouseClicked(evt);
+            }
+        });
+        tblPhongBan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblPhongBanKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tblPhongBan);
@@ -196,6 +214,39 @@ public class FPhongban extends javax.swing.JFrame {
             }
         });
 
+        btnHome.setText("Home");
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHomeActionPerformed(evt);
+            }
+        });
+        btnHome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnHomeKeyReleased(evt);
+            }
+        });
+
+        btnEnd.setText("End");
+        btnEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEndActionPerformed(evt);
+            }
+        });
+
+        btnPageup.setText("Pageup");
+        btnPageup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPageupActionPerformed(evt);
+            }
+        });
+
+        btnPagedow.setText("Pagedow");
+        btnPagedow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagedowActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,29 +262,42 @@ public class FPhongban extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(tftMaP, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(tftMaP, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(tftTenP, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAdd)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDelete)
+                                .addGap(9, 9, 9)
+                                .addComponent(btnEdit)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnPageup)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnSave)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnExit)))))
+                        .addGap(15, 15, 15)
+                        .addComponent(btnReload)
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(tftTenP, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)
-                        .addGap(9, 9, 9)
-                        .addComponent(btnEdit)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSave)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnExit)))
-                .addGap(15, 15, 15)
-                .addComponent(btnReload)
-                .addGap(18, 18, 18)
+                        .addGap(46, 46, 46)
+                        .addComponent(btnHome)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnEnd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPagedow)
+                        .addGap(55, 55, 55)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -252,7 +316,7 @@ public class FPhongban extends javax.swing.JFrame {
                         .addComponent(tftSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -271,7 +335,14 @@ public class FPhongban extends javax.swing.JFrame {
                             .addComponent(btnDelete)
                             .addComponent(btnEdit)
                             .addComponent(btnSave)
-                            .addComponent(btnExit)))
+                            .addComponent(btnExit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHome)
+                            .addComponent(btnPagedow)
+                            .addComponent(btnPageup)
+                            .addComponent(btnEnd))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addComponent(btnReload))
@@ -379,13 +450,18 @@ public class FPhongban extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tblPhongBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongBanMouseClicked
-        int row = tblPhongBan.getSelectedRow();
-        System.out.println("" + row);
-        String mapb = tblPhongBan.getModel().getValueAt(row, 0).toString();
-        String tenpb = tblPhongBan.getModel().getValueAt(row, 1).toString();
-        tftMaP.setText(mapb);
-        tftTenP.setText(tenpb);
-        btnEdit.setEnabled(true);
+        try {
+            int row = tblPhongBan.getSelectedRow();
+            rs.absolute(row + 1);
+            System.out.println("" + row);
+            String mapb = tblPhongBan.getModel().getValueAt(row, 0).toString();
+            String tenpb = tblPhongBan.getModel().getValueAt(row, 1).toString();
+            tftMaP.setText(mapb);
+            tftTenP.setText(tenpb);
+            btnEdit.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_tblPhongBanMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -435,6 +511,89 @@ public class FPhongban extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
 
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+        try {
+            // TODO add your handling code here:
+            rs.first(); //trở về dòng 0
+
+            tftMaP.setText(rs.getString("map"));
+            tftTenP.setText(rs.getString("tenp"));
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnHomeActionPerformed
+
+    private void btnHomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnHomeKeyReleased
+
+    }//GEN-LAST:event_btnHomeKeyReleased
+
+    private void btnEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (rs.next()) {
+                rs.last(); //trở về dòng 0
+                tftMaP.setText(rs.getString("map"));
+                tftTenP.setText(rs.getString("tenp"));
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+//            try {
+//                rs.first();
+//            } catch (SQLException ex1) {
+//
+//            }
+        }
+    }//GEN-LAST:event_btnEndActionPerformed
+
+    private void btnPageupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPageupActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (rs != null) {
+                rs.previous(); //trở về dòng 0
+
+                tftMaP.setText(rs.getString("map"));
+                tftTenP.setText(rs.getString("tenp"));
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnPageupActionPerformed
+
+    private void btnPagedowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagedowActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (rs != null) {
+                
+                //trở về dòng 0
+                rs.next();
+
+                tftMaP.setText(rs.getString("map"));
+                tftTenP.setText(rs.getString("tenp"));
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnPagedowActionPerformed
+
+    private void tblPhongBanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPhongBanKeyReleased
+        try {
+            int row = tblPhongBan.getSelectedRow();
+            rs.absolute(row + 1);
+            System.out.println("" + row);
+            String mapb = tblPhongBan.getModel().getValueAt(row, 0).toString();
+            String tenpb = tblPhongBan.getModel().getValueAt(row, 1).toString();
+            tftMaP.setText(mapb);
+            tftTenP.setText(tenpb);
+            btnEdit.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(FPhongban.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tblPhongBanKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -478,7 +637,11 @@ public class FPhongban extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnEnd;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnPagedow;
+    private javax.swing.JButton btnPageup;
     private javax.swing.JButton btnReload;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;

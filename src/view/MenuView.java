@@ -23,6 +23,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import test.test;
 
 /**
  *
@@ -74,32 +77,37 @@ public class MenuView extends JFrame {
         jmi_phancong.addActionListener(handle);
 
         jm_manager.add(jmi_thietbi);
-        jm_file.addSeparator();
+        jm_manager.addSeparator();
         jm_manager.add(jmi_nhanvien);
-        jm_file.addSeparator();
+        jm_manager.addSeparator();
         jm_manager.add(jmi_phongban);
-        jm_file.addSeparator();
+        jm_manager.addSeparator();
         jm_manager.add(jmi_loaitb);
-        jm_file.addSeparator();
+        jm_manager.addSeparator();
         jm_manager.add(jmi_phancong);
 
         JMenu jm_statistical = new JMenu("Statistical");
-        
+
         JMenuItem jmi_thongketheoloai = new JMenuItem("Thống Kê Theo Loại", KeyEvent.VK_X);
         jmi_thongketheoloai.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK));
         jmi_thongketheoloai.addActionListener(handle);
         JMenuItem jmi_thongketheophong = new JMenuItem("Thống Kê Theo Phòng", KeyEvent.VK_S);
         jmi_thongketheophong.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
         jmi_thongketheophong.addActionListener(handle);
-        
+
         jm_statistical.add(jmi_thongketheoloai);
+        jm_statistical.addSeparator();
         jm_statistical.add(jmi_thongketheophong);
 
         JMenu jm_about = new JMenu("About");
         JMenuItem jmi_aboutme = new JMenuItem("About Me", KeyEvent.VK_X);
         jmi_aboutme.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_DOWN_MASK));
         jmi_aboutme.addActionListener(handle);
+//        JMenuItem jmi_logout = new JMenuItem("Logout", KeyEvent.VK_L);
+//        jmi_logout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.ALT_DOWN_MASK));
+//        jmi_logout.addActionListener(handle);
         jm_about.add(jmi_aboutme);
+        //jm_about.add(jmi_logout);
 
         jmb.add(jm_file);
         jmb.add(jm_manager);
@@ -212,6 +220,15 @@ public class MenuView extends JFrame {
         fTHKTP.setVisible(true);
         fTHKTP.setSize(1370, 780);
         fTHKTP.setTitle("Thống Kê Thiết Bị Theo Phòng");
-
     }
+
+//    public void openFLogin() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+//        URL urlIconNotepad = test.class.getResource("login.jpg"); // create image
+//        Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);
+//        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        FLogin fLogin = new FLogin();
+//        fLogin.setVisible(true);
+//        fLogin.setIconImage(img);
+//        fLogin.setSize(902, 439);
+//    }
 }

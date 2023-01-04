@@ -7,6 +7,8 @@ package view;
 
 import connect.ConnectSQLServer;
 import constance.Constance;
+import java.awt.print.PrinterException;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -105,7 +109,7 @@ public class FThongKeTheoPhong extends javax.swing.JFrame {
                     String a[] = new String[]{
                         map, tenp, matb, tentb, date.toString(), tgbh, giamua.toString(), dvt, tennv, soluong.toString(), ngaytrangbi.toString(), trangthai};
                     //System.out.println("" + a);
-                    listtb.add(new ThietBi(map, tenp, matb, tentb, date, tgbh, giamua, dvt, tennv, soluong, ngaytrangbi, trangthai ));
+                    listtb.add(new ThietBi(map, tenp, matb, tentb, date, tgbh, giamua, dvt, tennv, soluong, ngaytrangbi, trangthai));
                     ((DefaultTableModel) tblThongKeTheoPhong.getModel()).addRow(a);
 
                 }
@@ -257,22 +261,29 @@ public class FThongKeTheoPhong extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbMaPhongActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //        try {
-        //            // TODO add your handling code here:
-        //            Maloai<String, Object> maloai = new HashMap<>();
-        //            LoaiTB item = (LoaiTB) jcbMaLoai.getSelectedItem();
-        //            String userDirectory = Paths.get("").toAbsolutePath().toString();
-        //            System.out.println(userDirectory);
-        //            maloai.put("para_1", item.getMaloai());
-        //            JasperDesign jd = JRXmlLoader.load(userDirectory + "\\src\\view\\report1.jrxml");
-        //            JasperReport jr = JasperCompileManager.compileReport(userDirectory + "\\src\\view\\report1.jrxml");
-        //            JasperPrint jp = JasperFillManager.fillReport(jr, maloai, conn);
-        //            JasperViewer.viewReport(jp);
-        //            JasperExportManager.exportReportToPdfFile(jp, "c:\\test\\test.pdf");
-        //
-        //        } catch (JRException ex) {
-        //            Logger.getLogger(FThongKeTheoLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
-        //        }
+//        try {
+//            // TODO add your handling code here:
+//            Map<String, Object> map = new HashMap<>();
+//            PhongBan item = (PhongBan) jcbMaPhong.getSelectedItem();
+//            String userDirectory = Paths.get("")
+//                    .toAbsolutePath()
+//                    .toString();
+//            System.out.println(userDirectory);
+//            map.put("para_1", item.getMap());
+//            JasperDesign jd = JRXmlLoader.load(userDirectory + "\\src\\report1.jrxml");
+//            JasperReport jr = JasperCompileManager.compileReport(userDirectory + "\\src\\report1.jrxml");
+//            JasperPrint jp = JasperFillManager.fillReport(jr, map, conn);
+//            JasperViewer.viewReport(jp);
+//            JasperExportManager.exportReportToPdfFile(jp, "c:\\test\\test.pdf");
+//
+//        } catch (JRException ex) {
+//            Logger.getLogger(FThongKeTheoPhong.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        try {
+            tblThongKeTheoPhong.print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(FThongKeTheoLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

@@ -78,7 +78,5 @@ public class MenuController implements ActionListener {
                 Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-
     }
 }

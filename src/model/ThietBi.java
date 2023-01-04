@@ -139,7 +139,6 @@ public class ThietBi {
 
     @Override
     public String toString() {
-        return matb.trim() + "--" + tentb;
+        return matb.trim() + "-" + tentb;
     }
-
 }

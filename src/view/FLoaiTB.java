@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author 84392
  */
 public class FLoaiTB extends javax.swing.JFrame {
-    
+
     Connection conn = null;
     ResultSet rs = null;
     PreparedStatement pst = null;
@@ -35,6 +35,15 @@ public class FLoaiTB extends javax.swing.JFrame {
         conn = ConnectSQLServer.getConnection(Constance.DB_URL, Constance.USER_NAME, Constance.PASSWORD);
         initComponents();
         showData("");
+        try {
+            // TODO add your handling code here:
+            rs.first(); //trở về dòng 0
+
+            tftMaLTB.setText(rs.getString("maloai"));
+            tftTenLTB.setText(rs.getString("tenloai"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
         btnAdd.setEnabled(true);
         btnEdit.setEnabled(false);
         btnSave.setEnabled(false);
@@ -70,7 +79,7 @@ public class FLoaiTB extends javax.swing.JFrame {
             }
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,6 +105,10 @@ public class FLoaiTB extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnHome = new javax.swing.JButton();
+        btnEnd = new javax.swing.JButton();
+        btnPageup = new javax.swing.JButton();
+        btnPagedow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Danh Mục Loại Thiết BỊ");
@@ -117,6 +130,11 @@ public class FLoaiTB extends javax.swing.JFrame {
         tblLoaiTB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLoaiTBMouseClicked(evt);
+            }
+        });
+        tblLoaiTB.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblLoaiTBKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tblLoaiTB);
@@ -194,6 +212,39 @@ public class FLoaiTB extends javax.swing.JFrame {
 
         jLabel3.setText("Tên loại thiết bị");
 
+        btnHome.setText("Home");
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHomeActionPerformed(evt);
+            }
+        });
+        btnHome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnHomeKeyReleased(evt);
+            }
+        });
+
+        btnEnd.setText("End");
+        btnEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEndActionPerformed(evt);
+            }
+        });
+
+        btnPageup.setText("Pageup");
+        btnPageup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPageupActionPerformed(evt);
+            }
+        });
+
+        btnPagedow.setText("Pagedow");
+        btnPagedow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagedowActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,29 +264,41 @@ public class FLoaiTB extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAdd)
+                                .addGap(9, 9, 9)
+                                .addComponent(btnDelete)))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(tftTenLTB, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEdit)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSave)
+                                .addGap(9, 9, 9)
+                                .addComponent(btnExit)))
                         .addGap(9, 9, 9)
-                        .addComponent(btnDelete)))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnReload)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(btnHome)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnEnd)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnPageup)
                         .addGap(18, 18, 18)
-                        .addComponent(tftTenLTB, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEdit)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSave)
-                        .addGap(9, 9, 9)
-                        .addComponent(btnExit)))
-                .addGap(9, 9, 9)
-                .addComponent(btnReload)
-                .addGap(18, 18, 18)
+                        .addComponent(btnPagedow)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -260,26 +323,35 @@ public class FLoaiTB extends javax.swing.JFrame {
                         .addComponent(tftSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel3)
-                        .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAdd)
-                            .addComponent(btnDelete)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(tftTenLTB, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEdit)
-                            .addComponent(btnSave)
-                            .addComponent(btnExit)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(btnReload))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel3)
+                                .addGap(59, 59, 59)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnAdd)
+                                    .addComponent(btnDelete)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(tftTenLTB, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEdit)
+                                    .addComponent(btnSave)
+                                    .addComponent(btnExit)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(btnReload)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHome)
+                            .addComponent(btnPagedow)
+                            .addComponent(btnPageup)
+                            .addComponent(btnEnd))
+                        .addGap(24, 24, 24))))
         );
 
         pack();
@@ -287,13 +359,18 @@ public class FLoaiTB extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblLoaiTBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiTBMouseClicked
-        int row = tblLoaiTB.getSelectedRow();
-        System.out.println("" + row);
-        String maloai = tblLoaiTB.getModel().getValueAt(row, 0).toString();
-        String tenloai = tblLoaiTB.getModel().getValueAt(row, 1).toString();
-        tftMaLTB.setText(maloai);
-        tftTenLTB.setText(tenloai);
-        btnEdit.setEnabled(true);
+        try {
+            int row = tblLoaiTB.getSelectedRow();
+            rs.absolute(row + 1);
+            System.out.println("" + row);
+            String maloai = tblLoaiTB.getModel().getValueAt(row, 0).toString();
+            String tenloai = tblLoaiTB.getModel().getValueAt(row, 1).toString();
+            tftMaLTB.setText(maloai);
+            tftTenLTB.setText(tenloai);
+            btnEdit.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(FLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_tblLoaiTBMouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -388,7 +465,7 @@ public class FLoaiTB extends javax.swing.JFrame {
         String maloai = tftMaLTB.getText();
         String tenloai = tftTenLTB.getText();
         int input = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa dữ liệu " + tenloai + " ?", "Thông báo",
-            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
         System.out.println("" + input);
         if (input == 0) { // nhấn vào ok
             try {
@@ -420,6 +497,89 @@ public class FLoaiTB extends javax.swing.JFrame {
         tftMaLTB.setText("");
         tftTenLTB.setText("");
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+        try {
+            // TODO add your handling code here:
+            rs.first(); //trở về dòng 0
+
+            tftMaLTB.setText(rs.getString("maloai"));
+            tftTenLTB.setText(rs.getString("tenloai"));
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnHomeActionPerformed
+
+    private void btnHomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnHomeKeyReleased
+
+    }//GEN-LAST:event_btnHomeKeyReleased
+
+    private void btnEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (rs.next()) {
+                rs.last(); //trở về dòng 0
+                tftMaLTB.setText(rs.getString("maloai"));
+                tftTenLTB.setText(rs.getString("tenloai"));
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+            //            try {
+            //                rs.first();
+            //            } catch (SQLException ex1) {
+            //
+            //            }
+        }
+    }//GEN-LAST:event_btnEndActionPerformed
+
+    private void btnPageupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPageupActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (rs != null) {
+                rs.previous(); //trở về dòng 0
+
+                tftMaLTB.setText(rs.getString("maloai"));
+                tftTenLTB.setText(rs.getString("tenloai"));
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnPageupActionPerformed
+
+    private void btnPagedowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagedowActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (rs != null) {
+
+                //trở về dòng 0
+                rs.next();
+
+                tftMaLTB.setText(rs.getString("maloai"));
+                tftTenLTB.setText(rs.getString("tenloai"));
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, ex);
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_btnPagedowActionPerformed
+
+    private void tblLoaiTBKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblLoaiTBKeyReleased
+        try {
+            int row = tblLoaiTB.getSelectedRow();
+            rs.absolute(row + 1);
+            System.out.println("" + row);
+            String maloai = tblLoaiTB.getModel().getValueAt(row, 0).toString();
+            String tenloai = tblLoaiTB.getModel().getValueAt(row, 1).toString();
+            tftMaLTB.setText(maloai);
+            tftTenLTB.setText(tenloai);
+            btnEdit.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(FLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tblLoaiTBKeyReleased
 
     /**
      * @param args the command line arguments
@@ -464,7 +624,11 @@ public class FLoaiTB extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnEnd;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnPagedow;
+    private javax.swing.JButton btnPageup;
     private javax.swing.JButton btnReload;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;

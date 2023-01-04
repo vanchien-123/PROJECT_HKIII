@@ -14,11 +14,26 @@ import java.sql.Date;
 public class PhanCong {
     
     private String manv;
+    private String tennv;
     private String map;
+    private String tenp;
     private String matb;
+    private String tentb;
     private Float soluong;
     private Date ngaytrangbi;
     private String trangthai;
+
+    public PhanCong(String manv, String tennv, String map, String tenp, String matb, String tentb, Float soluong, Date ngaytrangbi, String trangthai) {
+        this.manv = manv;
+        this.tennv = tennv;
+        this.map = map;
+        this.tenp = tenp;
+        this.matb = matb;
+        this.tentb = tentb;
+        this.soluong = soluong;
+        this.ngaytrangbi = ngaytrangbi;
+        this.trangthai = trangthai;
+    }
 
     public PhanCong(String manv, String map, String matb, Float soluong, Date ngaytrangbi, String trangthai) {
         this.manv = manv;
@@ -29,12 +44,22 @@ public class PhanCong {
         this.trangthai = trangthai;
     }
 
+    
+    
     public String getManv() {
         return manv;
     }
 
     public void setManv(String manv) {
         this.manv = manv;
+    }
+
+    public String getTennv() {
+        return tennv;
+    }
+
+    public void setTennv(String tennv) {
+        this.tennv = tennv;
     }
 
     public String getMap() {
@@ -45,12 +70,28 @@ public class PhanCong {
         this.map = map;
     }
 
+    public String getTenp() {
+        return tenp;
+    }
+
+    public void setTenp(String tenp) {
+        this.tenp = tenp;
+    }
+
     public String getMatb() {
         return matb;
     }
 
     public void setMatb(String matb) {
         this.matb = matb;
+    }
+
+    public String getTentb() {
+        return tentb;
+    }
+
+    public void setTentb(String tentb) {
+        this.tentb = tentb;
     }
 
     public Float getSoluong() {
@@ -76,6 +117,17 @@ public class PhanCong {
     public void setTrangthai(String trangthai) {
         this.trangthai = trangthai;
     }
+
+    public PhanCong(String manv, String tennv) {
+        this.manv = manv;
+        this.tennv = tennv;
+    }
+
+   
+    
+    
+    
+    
     
     
     

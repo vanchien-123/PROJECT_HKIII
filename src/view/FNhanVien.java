@@ -454,10 +454,10 @@ public class FNhanVien extends javax.swing.JFrame {
                     String diachi = tftDiaChi.getText();
                     boolean gioitinh = false;
                     if (jrdMale.isSelected()) {
-                        System.out.println("Nam");
+                        //System.out.println("Nam");
                         gioitinh = true;
                     } else if (jrdFemale.isSelected()) {
-                        System.out.println("Nữ");
+                        //System.out.println("Nữ");
                         gioitinh = false;
                     }
                     String sql = "insert into NHANVIEN(manv,tennv, sdtnv, diachi, gioitinh) values(N'" + manv + "',N'" + tennv + "',N'" + sdtnv + "',N'" + diachi + "',N'" + gioitinh + "')";

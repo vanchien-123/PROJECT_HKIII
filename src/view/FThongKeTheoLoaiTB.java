@@ -7,6 +7,7 @@ package view;
 
 import connect.ConnectSQLServer;
 import constance.Constance;
+import java.awt.print.PrinterException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.LoaiTB;
 import model.ThietBi;
+
 
 /**
  *
@@ -244,22 +246,33 @@ public class FThongKeTheoLoaiTB extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
 //        try {
 //            // TODO add your handling code here:
-//            Maloai<String, Object> maloai = new HashMap<>();
+//            Map<String, Object> maloai = new HashMap<>();
 //            LoaiTB item = (LoaiTB) jcbMaLoai.getSelectedItem();
 //            String userDirectory = Paths.get("").toAbsolutePath().toString();
 //            System.out.println(userDirectory);
 //            maloai.put("para_1", item.getMaloai());
-//            JasperDesign jd = JRXmlLoader.load(userDirectory + "\\src\\view\\report1.jrxml");
-//            JasperReport jr = JasperCompileManager.compileReport(userDirectory + "\\src\\view\\report1.jrxml");
-//            JasperPrint jp = JasperFillManager.fillReport(jr, maloai, conn);
-//            JasperViewer.viewReport(jp);
+//            //JasperDesign jd = JRXmlLoader.load(userDirectory + "src\\view\\report1.jrxml");
+//            JasperReport jasperReport = JasperCompileManager.compileReport("src\\view\\report1.jrxml");
+//            //JasperReport jr = JasperCompileManager.compileReport(userDirectory + "src\\view\\report1.jrxml");
+//            JasperPrint jp = JasperFillManager.fillReport(jasperReport, map, conn);
+//            //JasperViewer.viewReport(jp);
+//            JRViewer viewer = new JRViewer(jp);
+//            this.setLayout(new BorderLayout());
+//            this.add(viewer);
 //            JasperExportManager.exportReportToPdfFile(jp, "c:\\test\\test.pdf");
 //
 //        } catch (JRException ex) {
 //            Logger.getLogger(FThongKeTheoLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+        try {
+            tblThongKeTheoLoaiTB.print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(FThongKeTheoLoaiTB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

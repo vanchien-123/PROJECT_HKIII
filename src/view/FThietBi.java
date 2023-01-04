@@ -269,6 +269,12 @@ public class FThietBi extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblThietBi);
 
+        jcbMaLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMaLoaiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,16 +313,6 @@ public class FThietBi extends javax.swing.JFrame {
                         .addGap(148, 148, 148)
                         .addComponent(tftGiaMua, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(388, 388, 388)
-                        .addComponent(jLabel7)
-                        .addGap(131, 131, 131)
-                        .addComponent(jcbDVT, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(388, 388, 388)
-                        .addComponent(jLabel8)
-                        .addGap(151, 151, 151)
-                        .addComponent(jcbMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(btnAdd)
                         .addGap(28, 28, 28)
@@ -339,7 +335,16 @@ public class FThietBi extends javax.swing.JFrame {
                         .addComponent(btnSearch))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(388, 388, 388)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addGap(131, 131, 131)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbDVT, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(156, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -386,13 +391,14 @@ public class FThietBi extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addComponent(jLabel7))
                     .addComponent(jcbDVT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
+                        .addGap(23, 23, 23)
                         .addComponent(jLabel8))
-                    .addComponent(jcbMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jcbMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAdd)
                     .addComponent(btnDelete)
@@ -484,7 +490,7 @@ public class FThietBi extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Insert not successfully");
                     }
                 } catch (SQLException ex) {
-                    //                    JOptionPane.showMessageDialog(null, ex);
+                    // JOptionPane.showMessageDialog(null, ex);
                     System.out.println(ex);
                 }
             }
@@ -596,6 +602,10 @@ public class FThietBi extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tftSearchKeyReleased
+
+    private void jcbMaLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMaLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbMaLoaiActionPerformed
 
     /**
      * @param args the command line arguments

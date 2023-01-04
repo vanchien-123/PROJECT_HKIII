@@ -30,7 +30,6 @@ public class FLogin extends javax.swing.JFrame {
     ResultSet rs = null;
     PreparedStatement pst = null;
 
-
     /**
      * Creates new form FLogin
      */
@@ -40,7 +39,7 @@ public class FLogin extends javax.swing.JFrame {
         this.setSize(1000, 500);
         this.setLocationRelativeTo(null);
     }
-    
+
     public void openFMenuView() throws SQLException {
         URL urlIconNotepad = MenuView.class.getResource("login.jpg"); // create image
         Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);  //  đưa image vào trong chương trình 
@@ -70,6 +69,7 @@ public class FLogin extends javax.swing.JFrame {
         tftPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jcbPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Đăng Nhập");
@@ -92,6 +92,13 @@ public class FLogin extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/login.jpg"))); // NOI18N
 
+        jcbPassword.setText("Show Password");
+        jcbPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,17 +109,19 @@ public class FLogin extends javax.swing.JFrame {
                         .addGap(342, 342, 342)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(329, 329, 329)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(183, 183, 183)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tftUsername)
-                            .addComponent(tftPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(329, 329, 329)
-                        .addComponent(jLabel3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbPassword)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tftUsername)
+                                .addComponent(tftPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -129,7 +138,9 @@ public class FLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tftPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74)
+                .addGap(18, 18, 18)
+                .addComponent(jcbPassword)
+                .addGap(27, 27, 27)
                 .addComponent(btnLogin)
                 .addContainerGap(88, Short.MAX_VALUE))
             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -174,6 +185,14 @@ public class FLogin extends javax.swing.JFrame {
             System.out.println(e);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void jcbPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPasswordActionPerformed
+        if (jcbPassword.isSelected()) {
+            tftPassword.setEchoChar((char) 0);
+        } else {
+            tftPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jcbPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,6 +239,7 @@ public class FLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JCheckBox jcbPassword;
     private javax.swing.JPasswordField tftPassword;
     private javax.swing.JTextField tftUsername;
     // End of variables declaration//GEN-END:variables
